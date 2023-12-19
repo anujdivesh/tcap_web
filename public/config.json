@@ -1,0 +1,5 @@
+{
+    "thredds-address":"https://tds-test.pacificdata.org/thredds/wms/Oceans/TCAP/",
+    "cgi-address":"https://opm.gem.spc.int/",
+    "geoserver-address":"https://opm.gem.spc.int/"
+}
