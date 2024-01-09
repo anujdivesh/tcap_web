@@ -50,7 +50,7 @@ const Navbar = () => {
             Risks
           </NavLink>
           <NavLink to='/tcap/reports'>
-          Catalogue
+          Reports
           </NavLink>
           
         </NavMenu>
