@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import L from 'leaflet';
 import "./L.TileLayer.BetterWMS";
 import "leaflet-side-by-side";
+import {useNavigate} from 'react-router-dom';
 import './legend.css';
 import { saveAs } from "file-saver";
 import './checkbox.css';
@@ -42,6 +43,7 @@ import { Bar } from 'react-chartjs-2';
 
 
 const Services = () => {
+  const navigate = useNavigate();
 /*
   ChartJS.register(
     CategoryScale,
@@ -749,6 +751,12 @@ const handleSubmit=(e)=>{
   
   e.currentTarget.blur();
   }
+  const handleLogin=(e)=>{
+   
+    console.log('redirect')
+    navigate('/tcap/login')
+    e.currentTarget.blur();
+    }
   
 
   return (
@@ -918,6 +926,9 @@ const handleSubmit=(e)=>{
 
 
 : null}
+<Button variant="warning" style={{marginTop:'75vh', marginLeft:'70%'}} onClick={handleLogin}>
+            Login!
+          </Button>
       </div>
       <div className="col-sm-10" style={{padding:0}}>
       <div id="map" ref={mapContainer} style={{width:"100%", height:"100%",Zindex: "auto"}}></div>

@@ -8,6 +8,8 @@ import Catalogue from './pages/catalogue';
 import SignUp from './pages/signup';
 import Report from './pages/report';
 import Dem from './pages/dem';
+import Login from './pages/login';
+import Upload from './pages/upload';
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
       <Route path='/tcap/risk' element={<Report/>} />
       <Route path='/tcap/reports' element={<Catalogue/>} />
       <Route path='/tcap/DEM' element={<Dem/>} />
+      <Route path='/tcap/login' element={<Login/>} />
+      <Route path='/tcap/upload' element={<Upload/>} />
       <Route path="/tcap" element={<Navigate replace to="/tcap/home" />} />
       <Route path="/" element={<Navigate replace to="/tcap/home" />} />
     </Routes>
