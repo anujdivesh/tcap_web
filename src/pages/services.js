@@ -926,9 +926,18 @@ const handleSubmit=(e)=>{
 
 
 : null}
-<Button variant="warning" style={{marginTop:'75vh', marginLeft:'70%'}} onClick={handleLogin}>
-            Login!
+   <div className="row">
+    <div className="col-sm-6">
+    <Button variant="warning" style={{position: 'absolute',bottom:10, left:0, fontSize:'12px'}} onClick={handleLogin}>
+            Download datasets!
           </Button>
+      </div>
+      <div className="col-sm-6">
+      <Button variant="warning" style={{position: 'absolute',bottom:50, left:0, fontSize:'12px'}} onClick={handleLogin}>
+            Update datasets!
+          </Button>
+      </div>
+      </div>
       </div>
       <div className="col-sm-10" style={{padding:0}}>
       <div id="map" ref={mapContainer} style={{width:"100%", height:"100%",Zindex: "auto"}}></div>

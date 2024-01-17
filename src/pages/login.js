@@ -26,6 +26,7 @@ const Login = () => {
     const navigate = useNavigate();
     const form = useRef();
     const checkBtn = useRef();
+    const pageRef = useRef('download');
 
     const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -43,7 +44,7 @@ const Login = () => {
     else{
       AuthService.login(username, password).then(
         () => {
-          navigate("/tcap/upload");
+          navigate("/tcap/"+pageRef.current);
           window.location.reload();
         },
         (error) => {
@@ -68,6 +69,10 @@ const Login = () => {
    e.currentTarget.blur();
   };
 
+  const handleSite2=(e)=>{
+    pageRef.current = e.target.value;
+  }
+
 
   return (
     <div className="container">
@@ -86,6 +91,14 @@ const Login = () => {
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1"  name="password" value={password} placeholder="Password"  onChange={({ target }) => setPassword(target.value)} validations={[required]}/>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Page</label>
+    <select className="form-select form-select" aria-label=".form-select-sm example" onChange={handleSite2} style={{fontSize:'13px', paddingLeft:1}}>
+      <option value="download">Download Page</option>
+  <option value="upload">Upload Page</option>
+  <option value="revert">Rollback page</option>
+</select>
   </div>
   <br></br>
   <div className="form-group">

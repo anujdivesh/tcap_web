@@ -86,7 +86,7 @@ export default class UploadFiles extends Component {
         process_flag = false;
       }
     }
-    if (selectedFiles.length !== 3){
+    if (selectedFiles.length !== 4){
       process_flag = false
     }
     console.log(process_flag)
@@ -111,7 +111,7 @@ export default class UploadFiles extends Component {
     }
     else{
       this.setState({
-      message: ["Supported File Extensions: .csv .zip, Total files 3 is required."],
+      message: ["Supported File Extensions: .csv .zip, Total of 4 files are required."],
       });
     }
 
@@ -184,11 +184,12 @@ export default class UploadFiles extends Component {
     return (
       <div>
         <div className="alert alert-info" role="alert">
-          Total 3 files is required to be uploaded. Recommended file labelling:
+          A Total of 4 files is required to be uploaded. Recommended file labelling:
             <ul>
                <li key={1}>AtollName_GIS_stats_table_short.csv</li>
-               <li key={1}>AtollName_raw_positions.csv</li>
-               <li key={1}>TV_AtollName_SL.zip</li>
+               <li key={2}>AtollName_raw_positions.csv</li>
+               <li key={3}>AtollName_Image_error.csv</li>
+               <li key={4}>TV_AtollName_SL.zip</li>
             </ul>
           </div>
 
@@ -256,8 +257,8 @@ export default class UploadFiles extends Component {
         {fileInfos.length > 0 && (
           <div className="card">
             <div className="card-header" style={{ display: "flex" }}>List of Files
-            <button style={{ marginLeft: "auto" }} class="btn btn-danger" onClick={handleFileRemove}>
-        Clear All
+            <button style={{ marginLeft: "auto" }} className="btn btn-danger" onClick={handleFileRemove}>
+        Delete All
         </button></div>
             <ul className="list-group list-group-flush">
               {fileInfos &&
