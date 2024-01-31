@@ -1,5 +1,5 @@
 {
     "thredds-address":"https://tds.pacificdata.org/thredds/wms/GEM/Tuvalu/TCAP/",
     "cgi-address":"https://opm.gem.spc.int/",
-    "geoserver-address":"https://opm.gem.spc.int/"
+    "geoserver-address":"https://opmgeoserver.gem.spc.int/"
 }

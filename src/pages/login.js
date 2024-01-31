@@ -32,20 +32,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState()
   const [loading, setLoading] = useState(false);
+  const loadref = useRef(false);
   const [message, setMessage] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
+    loadref.current = true;
     if (username === '' || password === ''){
       setMessage('Username and Password cannot be empty!');
     }
     else{
       AuthService.login(username, password).then(
         () => {
+          setMessage('Logging in...')
           navigate("/tcap/"+pageRef.current);
-          window.location.reload();
+        //  window.location.reload();
+        loadref.current = false;
         },
         (error) => {
           const resMessage =
@@ -55,11 +59,11 @@ const Login = () => {
             error.message ||
             error.toString();
 
-          setLoading(false);
+         // setLoading(false);
           setMessage(resMessage);
         }
       );
-
+        
       console.log(username, password);
     }
    // localStorage.setItem('access_token', 'bycrpt');
@@ -97,13 +101,12 @@ const Login = () => {
     <select className="form-select form-select" aria-label=".form-select-sm example" onChange={handleSite2} style={{fontSize:'13px', paddingLeft:1}}>
       <option value="download">Download Page</option>
   <option value="upload">Upload Page</option>
-  <option value="revert">Rollback page</option>
 </select>
   </div>
   <br></br>
   <div className="form-group">
-          <button className="btn btn-primary btn-block" disabled={loading}>
-              {loading && (
+          <button className="btn btn-primary btn-block" disabled={loadref.current}>
+              {loadref.current && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
               <span>Login</span>

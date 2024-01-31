@@ -8,8 +8,108 @@ import './drop.css'
 import UploadFiles from "../components/upload.files.component";
 import axios from 'axios';
 import {toast} from 'react-toastify';
+import {
+  Button,Modal
+} from "react-bootstrap";
 
 const Upload = () => {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false)
+  };
+
+  const [show2, setShow2] = useState(false);
+
+  const handleClose2 = () => {
+    setShow2(false)
+  };
+
+  const onClickShow3= async(e) => {
+    axios.get(`https://opm.gem.spc.int/cgi-bin/get_json_list.py`)
+        .then(res => {
+          const file = res.data;
+          var check = false;
+          for (var i=0; i<file.length; i++){
+            console.log(file[i].file_name)
+            check = file[i].file_name.includes('revert')
+          }
+          if (check){
+            toast.warning("Some files are waiting to be processed.", {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+          }
+          else{
+
+          
+    if (siteRef.current != null){
+      var x = ["Nanumaga","Nanumea","Funafuti","Niulakita","Niutao","Nui","Nukufetau","Nukulaelae","Vaitupu"];
+      axios.get(`https://opm.gem.spc.int/cgi-bin/check_revert.py?island=`+siteRef.current)
+        .then(res => {
+          const file = res.data;
+          console.log(file.status)
+          if (file.status == 'found'){
+            setShow(true) 
+          }
+          else{
+            toast.warning("Nothing to revert.", {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+          }
+        })
+    }
+    else{
+      toast.warning('Please select island name!', {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+    }
+  }})
+      e.currentTarget.blur();
+  }
+
+  const onClickShow2= async(e) => {
+    axios.get(`https://opm.gem.spc.int/cgi-bin/get_json_list.py`)
+        .then(res => {
+          const file = res.data;
+          var check = false;
+          for (var i=0; i<file.length; i++){
+            console.log(file[i].file_name)
+            check = file[i].file_name.includes('data')
+          }
+          if (check){
+            toast.warning("Some files are waiting to be processed.", {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+          }
+          else{
+            if (siteRef.current != null){
+              var x = ["Nanumaga","Nanumea","Funafuti","Niulakita","Niutao","Nui","Nukufetau","Nukulaelae","Vaitupu"];
+              axios.get(`https://opmdata.gem.spc.int/shoreline/api/files`)
+                .then(res => {
+                  const file = res.data;
+                  var check = true;
+                  for (var i=0; i<file.length; i++){
+                    console.log(file[i].name)
+                    var boo = file[i].name.includes(siteRef.current)
+                    if (!boo){
+                      check = false
+                    }
+                  }
+                  var count = file.length;
+                  if(boo){
+                    if (count != 4){
+                      toast.warning("4 Files are required.", {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+                    }
+                    else{
+                    setShow2(true) 
+                    }
+                  }
+                  else{
+                    toast.warning("Ensure Upload file name matches island name. Please refresh the page!", {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+                  }
+                })
+            }
+            else{
+              toast.warning('Please select island name!', {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+            }
+          }
+        })
+      e.currentTarget.blur();
+  }
+
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [list, setList] = useState([]);
@@ -49,16 +149,19 @@ const Upload = () => {
 
       const handleProcessing = (e) => {
         if (siteRef.current != null){
-        axios.get(`https://opm.gem.spc.int/cgi-bin/anuj.py?island=`+siteRef.current)
+        axios.get(`https://opm.gem.spc.int/cgi-bin/handleprocessing.py?island=`+siteRef.current)
         .then(res => {
           const file = res.data;
           const myJSON = JSON.stringify(file); 
           console.log(file)
-          setMessage("Files has been sent to be processed: "+myJSON)
+          //setMessage("Files has been sent to be processed: "+myJSON)
+          toast.info("Files has been sent to be processed: "+myJSON, {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
+          
         })
+        setShow2(false)
       }
       else{
-        setMessage("Please select island name!")
+        toast.warning('Please select island name!', {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
       }
         e.currentTarget.blur();
     };
@@ -70,8 +173,9 @@ const Upload = () => {
         const file = res.data;
         const myJSON = JSON.stringify(file); 
         console.log(file)
-        setMessage("Files has been sent to be processed: "+myJSON)
+        toast.info("Files has been sent to be rolled back: "+myJSON, {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
       })
+      handleClose()
     }
     else{
       setMessage("Please select island name!")
@@ -85,7 +189,7 @@ const Upload = () => {
     }
 
     const getlogs = async () => { 
-      axios.get(`http://opm.gem.spc.int/cgi-bin/read_processing_log.py`)
+      axios.get(`https://opm.gem.spc.int/cgi-bin/read_processing_log.py`)
       .then(res => {
         const file = res.data;
         const myJSON = JSON.stringify(file); 
@@ -97,7 +201,7 @@ const Upload = () => {
     const handle_refresh = (e) => {
    setList([])
 
-   axios.get(`http://opm.gem.spc.int/cgi-bin/read_processing_log.py`)
+   axios.get(`https://opm.gem.spc.int/cgi-bin/read_processing_log.py`)
       .then(res => {
         const file = res.data;
         const myJSON = JSON.stringify(file); 
@@ -164,7 +268,10 @@ const Upload = () => {
   <hr/>
 
   <div className="row">
-  <div className="col-md-6">
+  <div className="col-2">
+    <p>Island Name:</p>
+    </div>
+  <div className="col-6">
   <select className="form-select form-select-sm" aria-label=".form-select-sm example" onChange={handleSite} style={{fontSize:'13px', paddingLeft:1}}>
       <option value="0">-- Select --</option>
   <option value="Nanumaga">Nanumaga</option>
@@ -178,17 +285,14 @@ const Upload = () => {
   <option value="Vaitupu">Vaitupu</option>
 </select>
   </div>
-  <div className="col-md-3">
+  <div className="col-2">
     
-  <button type="button" className="btn btn-success  btn-sm" onClick={handleProcessing}>Submit for Processing</button>&nbsp;
+  <button type="button" className="btn btn-success" onClick={onClickShow2}>Submit for Processing</button>&nbsp;
   
   </div>
-  <div className="col-md-3">
-  <button type="button" className="btn btn-warning  btn-sm" onClick={handle_revert}>Revert</button>&nbsp;
+  <div className="col-2">
+  <button type="button" className="btn btn-warning" onClick={onClickShow3}>Rollback to Previous</button>&nbsp;
     
-    </div>
-    <div className="col-md-3">
-    <button type="button" className="btn btn-warning  btn-sm" onClick={handle_refresh}>Refresh</button>&nbsp;
     </div>
 </div>
 
@@ -196,9 +300,6 @@ const Upload = () => {
 
   
 <br/>
-  <div className="alert alert-info" role="alert">
-          {message}
-          </div>
           <div className="row">
 <div className="col-md-12">
 {list.length > 0 && (
@@ -210,7 +311,7 @@ const Upload = () => {
   </thead>
   <tbody>
     {list.map((item) => (
-          <tr key={item.status}>
+          <tr key={item.status} className="table-warning">
       <td>{item.status}</td>
     </tr>
         ))}
@@ -226,6 +327,43 @@ const Upload = () => {
         </button>
     </div>
   </div>
+  <Modal show={show2} onHide={handleClose2} size="lg" centered={true} >
+    <Modal.Header className="btn btn-primary" >
+      Confirm processing
+    </Modal.Header>
+        <Modal.Body>
+        <br/>
+       Are you sure you want to continue making changes to shoreline data for <b>{siteRef.current}</b> island.
+       <br/>
+       <br/>
+        </Modal.Body>
+        <Modal.Footer>
+        <button type="button" className="btn btn-success" onClick={handleProcessing}>Submit for processing</button>
+          <Button variant="secondary" onClick={handleClose2}>
+            Close
+          </Button>
+         
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={show} onHide={handleClose} size="lg" centered={true} >
+    <Modal.Header className="btn btn-warning" >
+      Confirm revert
+    </Modal.Header>
+        <Modal.Body>
+        <br/>
+       Are you sure you want to revert shoreline data changes for <b>{siteRef.current}</b> island.
+       <br/>
+       <br/>
+        </Modal.Body>
+        <Modal.Footer>
+        <button type="button" className="btn btn-success" onClick={handle_revert}>Revert</button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+         
+        </Modal.Footer>
+      </Modal>
 </div>
 
   )

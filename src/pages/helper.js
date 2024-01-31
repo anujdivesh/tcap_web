@@ -3,6 +3,8 @@ import config from '../components/data/config.json'
 //const geoserverAddress = "http://services.gsd.spc.int:8089/";
 const geoserverAddress = config['geoserver-address'];
 
+const geoserverAddressLocal = 'http://192.168.53.68:8080/';
+
 //const cgiAddress = "http://services.gsd.spc.int:8080/";
 
 const cgiAddress = config["cgi-address"];
@@ -386,7 +388,7 @@ export async function addShoreline(mapContainer, siteRef, yearRef,pane){
     var filter = getFilterPrefix(siteRef,yearRef);
    // console.log(geoserverAddress+"geoserver/spc/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=spc:TV_"+siteRef+"_SL&outputFormat=application/json&srsName=epsg:4326&cql_filter="+filter)
    // const resp = await fetch(geoserverAddress+"geoserver/spc/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=spc:"+siteRef+"_1971_2021_Lines&outputFormat=application/json&srsName=epsg:4326&cql_filter=id="+yearRef);
-    const resp = await fetch(geoserverAddress+"geoserver/spc/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=spc:TV_"+siteRef+"_SL&outputFormat=application/json&srsName=epsg:4326&cql_filter="+filter);
+    const resp = await fetch(geoserverAddressLocal+"geoserver/spc/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=spc:TV_"+siteRef+"_SL&outputFormat=application/json&srsName=epsg:4326&cql_filter="+filter);
     const customData = await resp.json();
   //const customData = require('../shorelineDatasets/'+siteRef+'_shoreline_'+yearRef+'.json');
 var layer = L.geoJson(customData, {
@@ -801,7 +803,7 @@ export async function addTransact(mapContainer, siteRef, yearRef,pane, legend){
   const resp = await fetch(urll);
   const data = await resp.json();
 
-  const resp2 = await fetch(geoserverAddress+'geoserver/spc/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=spc:TV_'+siteRef+'_T&outputFormat=application/json&srsName=epsg:4326');
+  const resp2 = await fetch(geoserverAddressLocal+'geoserver/spc/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=spc:TV_'+siteRef+'_T&outputFormat=application/json&srsName=epsg:4326');
   const customData = await resp2.json();
   var layer = L.geoJson(customData, {
     pane: pane,
