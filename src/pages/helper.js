@@ -3,7 +3,7 @@ import config from '../components/data/config.json'
 //const geoserverAddress = "http://services.gsd.spc.int:8089/";
 const geoserverAddress = config['geoserver-address'];
 
-const geoserverAddressLocal = 'http://192.168.53.68:8080/';
+const geoserverAddressLocal = 'https://opm.gem.spc.int/';
 
 //const cgiAddress = "http://services.gsd.spc.int:8080/";
 

@@ -122,7 +122,7 @@ const Download = () => {
       <td>{item.filename}</td>
       <td>{item.filedesc}</td>
       <td>{item.filetype}</td>
-      <td>  <a href={item.link} target="_blank">Download</a></td>
+      <td>  <a href={item.link} target="_blank" rel="noopener noreferrer">Download</a></td>
     </tr>
         ))}
   </tbody>

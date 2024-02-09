@@ -14,6 +14,7 @@ import {
 import { useGlobalState,setGlobalState } from './globalstate';
 import {toast} from 'react-toastify';
 import config from '../components/data/config.json'
+import './button.css';
 /*
 import {
   Chart as ChartJS,
@@ -927,15 +928,11 @@ const handleSubmit=(e)=>{
 
 : null}
    <div className="row">
-    <div className="col-sm-6">
+    <div className="col-sm-12">
     <Button variant="warning" style={{position: 'absolute',bottom:10, left:0, fontSize:'12px'}} onClick={handleLogin}>
-            Download datasets!
+            Login!
           </Button>
-      </div>
-      <div className="col-sm-6">
-      <Button variant="warning" style={{position: 'absolute',bottom:50, left:0, fontSize:'12px'}} onClick={handleLogin}>
-            Update datasets!
-          </Button>
+          
       </div>
       </div>
       </div>
@@ -949,7 +946,7 @@ const handleSubmit=(e)=>{
         </Modal.Body>
         <Modal.Footer>
         <button type="button" className="btn btn-primary" onClick={handleSubmit}>Export</button>
-          <Button variant="secondary" onClick={handleClose2}>
+          <Button variant="secondary" onClick={handleClose2} style={{width:'100px'}}>
             Close
           </Button>
          
