@@ -1,14 +1,10 @@
-import React, { useEffect, useRef,useState } from 'react';
+import React, {useRef,useState } from 'react';
 import "leaflet-side-by-side";
 import "./L.TileLayer.BetterWMS";
 import "./testmap.css";
 import {useNavigate} from 'react-router-dom';
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import {
-  Button,Modal
-} from "react-bootstrap";
 import AuthService from '../services/auth.service';
 
 const required = (value) => {
@@ -30,15 +26,14 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState()
-  const [loading, setLoading] = useState(false);
+//  const [loading, setLoading] = useState(false);
   const loadref = useRef(false);
   const [message, setMessage] = useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
     setMessage("");
-    setLoading(true);
+   // setLoading(true);
     loadref.current = true;
     if (username === '' || password === ''){
       setMessage('Username and Password cannot be empty!');
@@ -69,7 +64,7 @@ const Login = () => {
    // localStorage.setItem('access_token', 'bycrpt');
    // navigate('/tcap/upload')
    
-   setLoading(false);
+  // setLoading(false);
    e.currentTarget.blur();
   };
 

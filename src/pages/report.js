@@ -3,7 +3,7 @@ import L from 'leaflet';
 import "./testmap.css";
 import "./radio.css";
 import { saveAs } from "file-saver";
-import {mayFlyer,addShorelineImagenoPaneGen,addRisk, getChartOptions,getYaxis} from "./helper";
+import {mayFlyer,addShorelineImagenoPaneGen,addRisk, getChartOptions,getYaxis, addTVMarker} from "./helper";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -19,7 +19,7 @@ import { useGlobalState,setGlobalState } from './globalstate';
 import {
   Button,Modal
 } from "react-bootstrap";
-
+import {toast} from 'react-toastify';
 
 const Report = () => {
 
@@ -84,7 +84,7 @@ const Report = () => {
   const nameer = useGlobalState("island_name");
   const shorelineLayer = useRef();
   const baseLayer = useRef();
-  //const layer2 = useRef();
+  const layer3 = useRef();
   const _isMounted = useRef(true);
   const mapContainer = React.useRef(null);
   //const url_risk = "https://opm.gem.spc.int/tcap/risk-plots";
@@ -537,6 +537,91 @@ await fetch(url).then((data)=> {
        console.log("error", e)
    })
 }
+
+const onClickShow3= async(siteName) => {
+  siteRef.current = siteName;
+
+ // siteRef.current = e.target.value;
+  setHorizon('present')
+
+  setdisableannual(true)
+  if (siteName !== "Tuvalu"){
+   // setCountry('island')
+    setDisplayShape(true)
+    setDisplay2(true)
+    setDisplay3(true)
+    if (assetRef.current === "population"){
+      setExpo(true)
+    }
+    else{
+      setExpo(false)
+    }
+
+  }
+  else{
+    setDisplay2(false)
+    setDisplay3(true)
+    setDisplayShape(false)
+    setExpo(false)
+    setCountry('island')
+
+  }
+  setAsset('population')
+  setType('exposed')
+ // setdisableannual(true)
+  setExpo(true)
+  fetchData(siteName, "population_exposed", getYaxis(siteName,'population','exposed'),true,true);
+
+
+
+  if (siteName !== "Tuvalu"){
+    //setDisplay2(true)
+    siteRefBool.current = false;
+   
+  }
+  else{
+    //setDisplay2(false)
+    siteRefBool.current = true;
+    
+  }
+
+  seteconomicbool(false)
+  if (shorelineLayer.current != null){
+  mapContainer.current.removeLayer(shorelineLayer.current);
+  }
+  if (layer3.current != null){
+    mapContainer.current.removeLayer(layer3.current);
+    }
+  shorelineLayer.current = addShorelineImagenoPaneGen(mapContainer.current, siteRef.current)
+  //layer2.current =  getMarker(mapContainer.current, siteRef.current, url_risk,assetRef.current,typeRef.current,siteRef.current,yearRef.current,climateRef.current,presentBoolRef.current,horizonRef.current,display3,country)
+  mayFlyer(mapContainer.current, siteRef.current);
+
+  if (siteName !== "Tuvalu"){
+    risklayer.current = addRisk(mapContainer.current, siteRef.current, yearRef.current,climateRef.current, presentBoolRef.current, horizonRef.current, 'risk')
+ 
+  }
+  else{
+    mapContainer.current.eachLayer(function (layer) {
+      
+      if (layer.defaultOptions != null){
+        if (layer.defaultOptions.id === "risk"){
+          mapContainer.current.removeLayer(layer);
+        }
+      }
+   });
+  }
+  mapContainer.current.eachLayer(function (layer) {
+    const layername = layer.options.id;
+    console.log(layername)
+    if(layername === 777){
+      mapContainer.current.removeLayer(layer);
+    }
+  });
+  setGlobalState("island_name", siteName);
+};
+
+
+
   function initMap(){
        baseLayer.current = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
          attribution: '&copy; Pacific Community (OSM)',
@@ -562,10 +647,29 @@ await fetch(url).then((data)=> {
         legendColorRef.current.addTo(mapContainer.current);
    //  layer2.current =  getMarker(mapContainer.current, siteRef.current, url_risk,assetRef.current,typeRef.current,siteRef.current,yearRef.current,climateRef.current,presentBoolRef.current,horizonRef.current,display3,country)
   
+
+   if (nameer[0] === "Tuvalu"){
+
+  //  displayRef2.current = false;
+   toast.info('Click on marker to zoom.', {position: toast.POSITION.BOTTOM_CENTER, autoClose:6000})
+    layer3.current = addTVMarker(mapContainer.current, "Nanumaga").on('click', function(e) {onClickShow3('Nanumaga')}).bindTooltip("Nanumaga", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Nanumea").on('click', function(e) {onClickShow3('Nanumea')}).bindTooltip("Nanumea", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Funafuti").on('click', function(e) {onClickShow3('Funafuti')}).bindTooltip("Funafuti", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Nui").on('click', function(e) {onClickShow3('Nui')}).bindTooltip("Nui", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Nukufetau").on('click', function(e) {onClickShow3('Nukufetau')}).bindTooltip("Nukufetau", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Niutao").on('click', function(e) {onClickShow3('Niutao')}).bindTooltip("Niutao", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Nukulaelae").on('click', function(e) {onClickShow3('Nukulaelae')}).bindTooltip("Nukulaelae", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Vaitupu").on('click', function(e) {onClickShow3('Vaitupu')}).bindTooltip("Vaitupu", {permanent:true,opacity:0.65});
+    layer3.current = addTVMarker(mapContainer.current, "Niulakita").on('click', function(e) {onClickShow3('Niulakita')}).bindTooltip("Niulakita", {permanent:true,opacity:0.65});
+    }
+    else{
+
 shorelineLayer.current = addShorelineImagenoPaneGen(mapContainer.current, siteRef.current)
 
-L.control.scale().addTo(mapContainer.current);
 mayFlyer(mapContainer.current, siteRef.current);
+
+L.control.scale().addTo(mapContainer.current);
+    }
 
      }
    useEffect(() => {  
@@ -580,9 +684,55 @@ mayFlyer(mapContainer.current, siteRef.current);
    },[]);
    
 const handleSite=(e)=>{
+  if (e.target.value === "Tuvalu"){
+  //  displayRef2.current = false;
+    toast.info('Click on marker to zoom.', {position: toast.POSITION.BOTTOM_CENTER, autoClose:6000})
+    if(risklayer.current !== null){
+        mapContainer.current.removeLayer(risklayer.current);
+    }
+    if(layer3.current !== null){
+        mapContainer.current.removeLayer(mapContainer.current);
+    }
+    if(shorelineLayer.current !== null){
+        mapContainer.current.removeLayer(shorelineLayer.current);
+    }
+        layer3.current = addTVMarker(mapContainer.current, "Nanumaga").on('click', function(e) {onClickShow3('Nanumaga')}).bindTooltip("Nanumaga", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Nanumea").on('click', function(e) {onClickShow3('Nanumea')}).bindTooltip("Nanumea", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Funafuti").on('click', function(e) {onClickShow3('Funafuti')}).bindTooltip("Funafuti", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Nui").on('click', function(e) {onClickShow3('Nui')}).bindTooltip("Nui", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Nukufetau").on('click', function(e) {onClickShow3('Nukufetau')}).bindTooltip("Nukufetau", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Niutao").on('click', function(e) {onClickShow3('Niutao')}).bindTooltip("Niutao", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Nukulaelae").on('click', function(e) {onClickShow3('Nukulaelae')}).bindTooltip("Nukulaelae", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Vaitupu").on('click', function(e) {onClickShow3('Vaitupu')}).bindTooltip("Vaitupu", {permanent:true,opacity:0.65});
+        layer3.current = addTVMarker(mapContainer.current, "Niulakita").on('click', function(e) {onClickShow3('Niulakita')}).bindTooltip("Niulakita", {permanent:true,opacity:0.65});
+    
+        mapContainer.current.eachLayer(function (layer) {
+          if (layer.defaultOptions != null){
+            if (layer.defaultOptions.id === "risk"){
+              mapContainer.current.removeLayer(layer);
+            }
+          }
+       });
+        setDisplay2(false)
+        setDisplay3(true)
+        setDisplayShape(false)
+        setExpo(false)
+        setCountry('island')
+        mayFlyer(mapContainer.current, 'Tuvalu');
+        siteRef.current = e.target.value;
+      }
+  else{
 //var random = Array.from({length: 3}, () => Math.floor(Math.random() * 40));
   //chart(random);
   //chartOptions('Anuj Divesh')
+  mapContainer.current.eachLayer(function (layer) {
+    const layername = layer.options.id;
+    console.log(layername)
+    if(layername === 777){
+      mapContainer.current.removeLayer(layer);
+    }
+  });
+  
   siteRef.current = e.target.value;
   setHorizon('present')
 
@@ -651,6 +801,7 @@ const handleSite=(e)=>{
       }
    });
   }
+}
   setGlobalState("island_name", e.target.value);
 }
 

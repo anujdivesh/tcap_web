@@ -3,19 +3,19 @@ import "leaflet-side-by-side";
 import "./L.TileLayer.BetterWMS";
 import "./testmap.css";
 import {useNavigate} from 'react-router-dom';
-import AuthService from '../services/auth.service';
+//import AuthService from '../services/auth.service';
 import './drop.css'
-import UploadFiles from "../components/upload.files.component";
-import axios from 'axios';
+//import UploadFiles from "../components/upload.files.component";
+//import axios from 'axios';
 import {toast} from 'react-toastify';
 
 const Download = () => {
     const navigate = useNavigate();
-    const [message, setMessage] = useState("");
-    const [data, setData] = useState("");
+ //   const [message, setMessage] = useState("");
+  //  const [data, setData] = useState("");
     const [list, setList] = useState([]);
 
-    const siteRef = useRef(null);
+    //const siteRef = useRef(null);
     const siteRef2 = useRef(null);
     const handleLogout = () => {
           localStorage.removeItem("user");
@@ -35,7 +35,7 @@ const Download = () => {
    setList([])
 
       if (siteRef2.current != null){
-        let x = Math.random();
+       // let x = Math.random();
         var name2 = siteRef2.current;
         if (siteRef2.current === 'Nanumanga'){
           name2 = 'Nanumaga'

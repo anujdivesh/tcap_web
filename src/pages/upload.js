@@ -3,7 +3,6 @@ import "leaflet-side-by-side";
 import "./L.TileLayer.BetterWMS";
 import "./testmap.css";
 import {useNavigate} from 'react-router-dom';
-import AuthService from '../services/auth.service';
 import './drop.css'
 import UploadFiles from "../components/upload.files.component";
 import axios from 'axios';
@@ -42,12 +41,11 @@ const Upload = () => {
 
           
     if (siteRef.current != null){
-      var x = ["Nanumaga","Nanumea","Funafuti","Niulakita","Niutao","Nui","Nukufetau","Nukulaelae","Vaitupu"];
       axios.get(`https://opm.gem.spc.int/cgi-bin/check_revert.py?island=`+siteRef.current)
         .then(res => {
           const file = res.data;
           console.log(file.status)
-          if (file.status == 'found'){
+          if (file.status === 'found'){
             setShow(true) 
           }
           else{
@@ -76,11 +74,11 @@ const Upload = () => {
           }
           else{
             if (siteRef.current != null){
-              var x = ["Nanumaga","Nanumea","Funafuti","Niulakita","Niutao","Nui","Nukufetau","Nukulaelae","Vaitupu"];
+         //     var x = ["Nanumaga","Nanumea","Funafuti","Niulakita","Niutao","Nui","Nukufetau","Nukulaelae","Vaitupu"];
               axios.get(`https://opmdata.gem.spc.int/shoreline/api/files`)
                 .then(res => {
                   const file = res.data;
-                  var check = true;
+                //  var check = true;
                   for (var i=0; i<file.length; i++){
                     console.log(file[i].name)
                     var boo = file[i].name.includes(siteRef.current)
@@ -90,7 +88,7 @@ const Upload = () => {
                   }
                   var count = file.length;
                   if(boo){
-                    if (count != 4){
+                    if (count !== 4){
                       toast.warning("4 Files are required.", {position: toast.POSITION.BOTTOM_CENTER, autoClose:5000})
                     }
                     else{
@@ -111,17 +109,17 @@ const Upload = () => {
   }
 
     const navigate = useNavigate();
-    const [message, setMessage] = useState("");
+    //const [message, setMessage] = useState("");
     const [list, setList] = useState([]);
-    const dataref = useRef();
+  //  const dataref = useRef();
     const siteRef = useRef(null);
-    const siteRef2 = useRef(null);
+ //   const siteRef2 = useRef(null);
     const handleLogout = () => {
           localStorage.removeItem("user");
           navigate("/tcap/login");
      
       };
-
+/*
       const handleFileRemove = () => {
           const loggedInUser = localStorage.getItem("user");
           const obj = JSON.parse(loggedInUser)
@@ -145,7 +143,7 @@ const Upload = () => {
           })
      
       };
-
+*/
 
       const handleProcessing = (e) => {
         if (siteRef.current != null){
@@ -178,26 +176,26 @@ const Upload = () => {
       handleClose()
     }
     else{
-      setMessage("Please select island name!")
+     // setMessage("Please select island name!")
     }
       e.currentTarget.blur();
   };
-
+/*
     const handleclear = (e) => {
       setList([])
       e.currentTarget.blur();
     }
-
+*/
     const getlogs = async () => { 
       axios.get(`https://opm.gem.spc.int/cgi-bin/read_processing_log.py`)
       .then(res => {
         const file = res.data;
-        const myJSON = JSON.stringify(file); 
+     //   const myJSON = JSON.stringify(file); 
         setList(file)
       })
     }
 
-
+/*
     const handle_refresh = (e) => {
    setList([])
 
@@ -229,7 +227,7 @@ const Upload = () => {
    
       e.currentTarget.blur();
   };
-
+*/
   useEffect(()=>{
     const interval=setInterval(()=>{
       getlogs()
