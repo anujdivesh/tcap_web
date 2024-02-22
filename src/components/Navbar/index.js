@@ -28,10 +28,10 @@ const Navbar = () => {
       <NavLinkage to='/tcap' >
           <img src={require('../../images/GCFLogo.png')} alt='logo' style={{width:"75px", height:"45px",marginLeft:'3px'}}/>
         </NavLinkage>
-        <NavLink to='/tcap' style={{color:"white", fontWeight:"bold", fontSize:"18px", paddingLeft:'15%'}}>
+        <NavLink to='/tcap' style={{color:"white", fontWeight:"bold", fontSize:"18px", paddingLeft:'14%'}}>
         Tuvalu Coastal Adaptation Project
         </NavLink>
-        <NavMenu style={{paddingLeft:'10%'}}>
+        <NavMenu style={{paddingLeft:'9%'}}>
         <NavLink to='/tcap/home'>
           Home
           </NavLink>
@@ -51,6 +51,9 @@ const Navbar = () => {
           </NavLink>
           <NavLink to='/tcap/reports'>
           Reports
+          </NavLink>
+          <NavLink to='/tcap/login'>
+          Login
           </NavLink>
           
         </NavMenu>

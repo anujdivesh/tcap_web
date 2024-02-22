@@ -257,8 +257,8 @@ const Upload = () => {
         <div className="card">
   <div className="card-header" style={{ display: "flex" }}>
     Data update center
-    <button style={{ marginLeft: "auto" }} className="btn btn-primary" onClick={handleLogout}>
-        Back
+    <button style={{ marginLeft: "auto" }} className="btn btn-warning" onClick={handleLogout}>
+        Logout
         </button>
   </div>
   <div className="card-body">
@@ -320,8 +320,8 @@ const Upload = () => {
 </div>
   </div>
   <div className="card-footer" style={{ display: "flex" }}>
-        <button style={{ marginLeft: "auto" }} className="btn btn-primary" onClick={handleLogout}>
-        Back
+        <button style={{ marginLeft: "auto" }} className="btn btn-warning" onClick={handleLogout}>
+        Logout
         </button>
     </div>
   </div>

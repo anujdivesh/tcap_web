@@ -30,6 +30,7 @@ const Login = () => {
   const loadref = useRef(false);
   const [message, setMessage] = useState("");
 
+  
   const handleSubmit = e => {
     e.preventDefault();
     setMessage("");
@@ -37,6 +38,7 @@ const Login = () => {
     loadref.current = true;
     if (username === '' || password === ''){
       setMessage('Username and Password cannot be empty!');
+      loadref.current = false;
     }
     else{
       AuthService.login(username, password).then(
@@ -56,10 +58,11 @@ const Login = () => {
 
          // setLoading(false);
           setMessage(resMessage);
+          loadref.current = false;
         }
       );
         
-      console.log(username, password);
+      //console.log(username, password);
     }
    // localStorage.setItem('access_token', 'bycrpt');
    // navigate('/tcap/upload')
@@ -77,7 +80,7 @@ const Login = () => {
     <div className="container">
         <br></br>
         <div class="card">
-  <div class="card-header">
+  <div class="card-header  text-white" style={{backgroundColor: "#5cb85c"}}>
     Login
   </div>
   <div class="card-body">

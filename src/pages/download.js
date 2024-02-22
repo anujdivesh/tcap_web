@@ -44,9 +44,9 @@ const Download = () => {
 
         const newItem = [{id:1, filename:'TV_'+name2+"_SL", filedesc:"Shoreline change analysis shapefile", filetype:'.zip', link:"https://opm.gem.spc.int/geoserver_data/Shoreline/"+name2+"/TV_"+name2+"_SL.zip"},
         {id:2, filename:'TV_'+name2+"_T",  filedesc:"Transects Shapefile", filetype:'.zip', link:"https://opm.gem.spc.int/geoserver_data/Transects/"+name2+"/TV_"+name2+"_T.zip"},
-        {id:3, filename:name2+'_GIS_stats_table_short.csv',  filedesc:"Output from shoreline change analysis", filetype:'.csv', link:"https://opm.gem.spc.int/scripts/"+name2+"/GIS_stats_table_short.csv"},
-        {id:4, filename:name2+'_raw_positions.csv', filedesc:"Output from shoreline change analysis",filetype:'.csv', link:"https://opm.gem.spc.int/scripts/"+name2+"/raw_positions.csv"},
-        {id:5, filename:name2+'_Image_error.csv', filedesc:"Output from shoreline change analysis",filetype:'.csv', link:"https://opm.gem.spc.int/scripts/"+name2+"/Image_error.csv"}];
+        {id:3, filename:name2+'_GIS_stats_table_short.csv',  filedesc:"Output from shoreline change analysis", filetype:'.csv', link:"https://opm.gem.spc.int/scripts/web/"+name2+"/GIS_stats_table_short.csv"},
+        {id:4, filename:name2+'_raw_positions.csv', filedesc:"Output from shoreline change analysis",filetype:'.csv', link:"https://opm.gem.spc.int/scripts/web/"+name2+"/raw_positions.csv"},
+        {id:5, filename:name2+'_Image_error.csv', filedesc:"Output from shoreline change analysis",filetype:'.csv', link:"https://opm.gem.spc.int/scripts/web/"+name2+"/Image_error.csv"}];
         setList(newItem)
         //setList([...list, newItem]);
       
@@ -133,8 +133,8 @@ const Download = () => {
 
   </div>
   <div className="card-footer" style={{ display: "flex" }}>
-        <button style={{ marginLeft: "auto" }} className="btn btn-primary" onClick={handleLogout}>
-        Back
+        <button style={{ marginLeft: "auto" }} className="btn btn-warning" onClick={handleLogout}>
+        Logout
         </button>
     </div>
   </div>
