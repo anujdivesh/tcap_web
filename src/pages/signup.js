@@ -5,17 +5,19 @@ const SignUp = () => {
 
   return (
     <>
-    <div className="container">
+    <div className="container-fluid" style={{width:'75%', paddingTop:'1%'}}>
     <div id="header">
       <h2>TCAP Dashboard</h2>
     </div>
-    <p>This dashboard was developed under the Tuvalu Coastal Adaption Project (TCAP). The portal provides home for gridded and geospatial data produced by the project. </p>
+    <p style={{fontSize:'15px'}}>This hazard and risk dashboard, developed under the GCF funded Tuvalu Coastal Adaptation Project (TCAP), showcases Tuvalu’s increased risk knowledge and provides decision makers with ready-made risk products to support the development of short- to long-term effective adaptation strategies. This open-source dashboard is designed as a living platform enabling the integration of new datasets by government. The dashboard offers an highly interactive access to key national-scale datasets including high resolution Digital Elevation Models (DEMs), inundation hazard and risk products as well as shoreline change layers and high-resolution imageries spanning over the last half a century. For more information, email <a href="mailto:oit@spc.int">oit@spc.int</a></p>
 
     <pre><code className="javascript" id="code"></code></pre>
    
     <div className="row" >
+    <div className="col-sm-1">
+</div>
 
-<div className="col-sm-3">
+<div className="col-sm-2">
 
 <div className="card" style={{width: "100%"}}>
 
@@ -23,32 +25,32 @@ const SignUp = () => {
 <div className="card-body">
 <h5 className="card-title">DEM</h5>
 
-<p className="card-text" style={{fontSize:'13px'}}>High Resolution Bathymetry and Topography.</p>
+<p className="card-text" style={{fontSize:'13px'}}>Hi-Res Bathymetry and Topography.</p>
 
 <button type="button" className="btn btn-primary" onClick={()=>{ navigate('/tcap/DEM')}}>Browse {">"}</button>
 </div>
 </div>
 </div>
-    <div className="col-sm-3">
+    <div className="col-sm-2">
 
     <div className="card" style={{width: "100%"}}>
 
   <img src={require('../images/inund.png')} className="card-img-top" alt="Loading.."style={{height:'160px'}}/>
   <div className="card-body">
     <h5 className="card-title">Inundation</h5>
-    <p className="card-text" style={{fontSize:'13px'}}>Shows inundation for different climate projections.</p>
+    <p className="card-text" style={{fontSize:'13px'}}>Inundation for different climate projections.</p>
 
     <button type="button" className="btn btn-primary" onClick={()=>{ navigate('/tcap/inundation')}}>Browse {">"}</button>
   </div>
 </div>
 </div>
-<div className="col-sm-3">
+<div className="col-sm-2">
 
 <div className="card" style={{width: "100%"}}>
 
 <img src={require('../images/shore.png')} className="card-img-top" alt="Loading.."style={{height:'160px'}}/>
 <div className="card-body">
-<h5 className="card-title">Shoreline Change</h5>
+<h5 className="card-title">Shoreline</h5>
 
 <p className="card-text" style={{fontSize:'13px'}}>Tool to analyze shoreline change overtime.</p>
 
@@ -56,19 +58,35 @@ const SignUp = () => {
 </div>
 </div>
 </div>
-<div className="col-sm-3">
+<div className="col-sm-2">
 
 <div className="card" style={{width: "100%"}}>
 
 <img src={require('../images/risk.png')} className="card-img-top" alt="Loading.." style={{height:'160px'}}/>
 <div className="card-body">
-<h5 className="card-title">Risks</h5>
+<h5 className="card-title">Risk</h5>
 
 <p className="card-text" style={{fontSize:'13px'}}>Shows risk level on different assets.</p>
 
 <button type="button" className="btn btn-primary" onClick={()=>{ navigate('/tcap/risk')}}>Browse {">"}</button>
 </div>
 </div>
+</div>
+<div className="col-sm-2">
+
+<div className="card" style={{width: "100%"}}>
+
+<img src={require('../reports/JGR Oceans - 2023 - Wandres - Wave Climate Variability and Trends_in_Tuvalu_Based_on_a_44‐Year_High‐Resolution_Wave.png')} className="card-img-top" alt="Loading.." style={{height:'160px'}}/>
+<div className="card-body">
+<h5 className="card-title">Reports</h5>
+
+<p className="card-text" style={{fontSize:'13px'}}>Reports and research papers published.</p>
+
+<button type="button" className="btn btn-primary" onClick={()=>{ navigate('/tcap/reports')}}>Browse {">"}</button>
+</div>
+</div>
+</div>
+<div className="col-sm-1">
 </div>
 
 </div>
