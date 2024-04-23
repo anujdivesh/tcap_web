@@ -830,7 +830,7 @@ export async function addTransact(mapContainer, siteRef, yearRef,pane, legend){
             if(parseFloat(high_low) >=parseFloat(0)){
               erosion = "Accretion"
             }
-            htmltag ="<div style='width: 80px; height: 15px;text-align: center;line-height: 10px;'>"+erosion+":" + high_low+"</div>"
+            htmltag ="<div style='width: 80px; height: 15px;text-align: center;line-height: 10px;'>"+erosion+":" + high_low+"m</div>"
           }
           else{
             htmltag ="<img style='width: 700px; height: 500px;text-align: center;line-height: 500px;' alt='Loading...' src='"+cgiAddress+"cgi-bin/shoreline/"+siteRef+"/shoreline.py?t="+f.properties.Transect+"&y="+legend.toString()+"'>"
@@ -1133,14 +1133,14 @@ export async function getChartData(presentArr, SSP452060Arr, SSP452100Arr, SSP85
   
   },
   {
-    label:'SSP2-8.5(2060)',
+    label:'SSP5-8.5(2060)',
     backgroundColor: 'rgb(153, 102, 255)',
     stack: 'Stack 2',
       data:SSP852060Arr
   
   },
   {
-    label:'SSP2-8.5(2100)',
+    label:'SSP5-8.5(2100)',
     backgroundColor: 'rgb(255, 159, 64)',
     stack: 'Stack 2',
     data:SSP852100Arr
