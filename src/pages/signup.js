@@ -108,6 +108,13 @@ const SignUp = () => {
      </div>
       </div>
 </div>
+<br/>
+<div style={{textAlign: 'center',fontSize:'15px', color:'grey' }}>
+  <p>Local Network Access:   <a href="http://10.1.25.28/tcap" target="_blank" rel="noopener noreferrer">
+  http://10.1.25.28/tcap
+            </a></p> 
+
+</div>
 
 </div>
 </>
