@@ -151,6 +151,7 @@ const nameer = useGlobalState("island_name");
   const imageRef = useRef("2021");
   const [years, setYears] = useState([]);
   const shorelineyears = useRef([]);
+  const satelliteyears = useRef([]);
   const [yearsCheck, setYearsCheck] = useState([]);
   const yearRef = useRef(2019);
   const baseurl = config['cgi-address'];
@@ -162,6 +163,12 @@ const nameer = useGlobalState("island_name");
     const data = await response.json();
     console.log(data)
     return data
+}
+const everything_satellite = async () =>{
+  const response = await fetch('https://opm.gem.spc.int/cgi-bin/get_satellite_years.py');
+  const data = await response.json();
+  console.log(data)
+  return data
 }
 
   const [show2, setShow2] = useState(false);
@@ -271,7 +278,7 @@ return mapContainer.current;
      
   setYears(shorelineyears.current)
 
-  setYearsCheck(shorelineyears.current)
+  setYearsCheck(satelliteyears.current)
     
   staelliteLayer.current = addShorelineImage(mapContainer.current, siteRef.current, "image", 'left','2019')
 
@@ -350,6 +357,12 @@ if (_isMounted.current){
      temp.push(res)
      shorelineyears.current = temp;
     })
+    await everything_satellite().then((res)=>{
+      console.log(res)
+      var temp = [];
+      temp.push(res)
+      satelliteyears.current = temp;
+     })
 
       initMap(url);
     } catch (e) {
@@ -488,7 +501,7 @@ const onClickShow3= async(siteName) => {
   //console.log(sitesShoreline())
   setYears(shorelineyears.current)
 
-  setYearsCheck(shorelineyears.current)
+  setYearsCheck(satelliteyears.current)
   //setYearsCheck(sitesShoreline2())
   layer2.current = getArea(mapContainer.current, siteName).on('click', function(e) {onClickShow2(siteName)});
    
@@ -538,7 +551,7 @@ const handleSite=(e)=>{
       }
     });
   setYears(shorelineyears.current)
-  setYearsCheck(shorelineyears.current)
+  setYearsCheck(satelliteyears.current)
   setIsCheckAll(false);
   setInput(!input);
   yearRef.current = 2019;
@@ -908,7 +921,7 @@ const handleSubmit=(e)=>{
       <div className="col-sm-6">
       <select className="form-select form-select-sm" aria-label=".form-select-sm example" onChange={handleImage2} style={{fontSize:'13px', paddingLeft:1}}>
   <option value="2021">2021</option>
-  {years.map((v, i) => (
+  {yearsCheck.map((v, i) => (
                 v[siteRef.current].map((x,y)=>(
                     <option value={x.id} key={y}>{x.id}</option>
                 ))

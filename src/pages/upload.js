@@ -256,7 +256,7 @@ const Upload = () => {
         <br></br>
         <div className="card">
   <div className="card-header" style={{ display: "flex" }}>
-    Data update center
+    Update Shoreline Change Analysis
     <button style={{ marginLeft: "auto" }} className="btn btn-warning" onClick={handleLogout}>
         Logout
         </button>

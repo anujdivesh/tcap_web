@@ -22,7 +22,7 @@ const Login = () => {
     const navigate = useNavigate();
     const form = useRef();
     const checkBtn = useRef();
-    const pageRef = useRef('download');
+    //const pageRef = useRef('download');
 
     const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +30,12 @@ const Login = () => {
   const loadref = useRef(false);
   const [message, setMessage] = useState("");
 
-  
+  const [selectedOption, setSelectedOption] = useState('download');
+
+  const handleRadioChange = (event) => {
+      setSelectedOption(event.target.value);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     setMessage("");
@@ -44,7 +49,7 @@ const Login = () => {
       AuthService.login(username, password).then(
         () => {
           setMessage('Logging in...')
-          navigate("/tcap/"+pageRef.current);
+          navigate("/tcap/"+selectedOption);
         //  window.location.reload();
         loadref.current = false;
         },
@@ -70,11 +75,11 @@ const Login = () => {
   // setLoading(false);
    e.currentTarget.blur();
   };
-
+/*
   const handleSite2=(e)=>{
     pageRef.current = e.target.value;
   }
-
+*/
 
   return (
     <div className="container">
@@ -94,12 +99,29 @@ const Login = () => {
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1"  name="password" value={password} placeholder="Password"  onChange={({ target }) => setPassword(target.value)} validations={[required]}/>
   </div>
+  <br/>
   <div class="form-group">
-    <label for="exampleInputPassword1">Page</label>
-    <select className="form-select form-select" aria-label=".form-select-sm example" onChange={handleSite2} style={{fontSize:'13px', paddingLeft:1}}>
-      <option value="download">Download Page</option>
-  <option value="upload">Upload Page</option>
-</select>
+    <label for="exampleInputPassword1">Redirect Page:</label>
+   
+  </div>
+  <div class="form-group">
+  <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="download" id="option1" value="download" 
+        checked={selectedOption === 'download'} onChange={handleRadioChange}/>
+        <label class="form-check-label" for="option1">Download Page</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="upload" id="upload2" value="upload"
+        checked={selectedOption === 'upload'} onChange={handleRadioChange}/>
+        <label class="form-check-label" for="upload2">Shoreline Analysis Upload</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="satellite" id="option3" value="satellite"
+        checked={selectedOption === 'satellite'} onChange={handleRadioChange}/>
+        <label class="form-check-label" for="option3">Satellite Imagery Upload</label>
+    </div>
   </div>
   <br></br>
   <div className="form-group">
