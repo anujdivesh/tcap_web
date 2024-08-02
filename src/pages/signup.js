@@ -3,6 +3,12 @@ import { useNavigate} from 'react-router-dom';
 const SignUp = () => {
   const navigate = useNavigate();
 
+  const handleClick = (e) => {
+    window.open('http://10.1.25.28/tcap', '_blank', 'noopener,noreferrer');
+    e.currentTarget.blur()
+};
+
+
   return (
     <>
     <div className="container-fluid" style={{width:'75%', paddingTop:'1%'}}>
@@ -90,9 +96,24 @@ const SignUp = () => {
 </div>
 
 </div>
+
+<pre><code className="javascript" id="code"></code></pre>
+
+<div style={{textAlign: 'center',fontSize:'15px', color:'grey' }}>
+
+<button type="button" className="btn btn-warning" style={{color:'black', fontWeight:'bold'}} onClick={handleClick}>
+<img 
+                    src={require('../images/tv_govt.png')}
+                    alt="Button Icon" 
+                    className="me-2" 
+                    style={{width:'55px', height:'30px'}}
+                />
+  Government Network Link</button>
+
+</div>
 <pre><code className="javascript" id="code"></code></pre>
 <pre><code className="javascript" id="code"></code></pre>
-<pre><code className="javascript" id="code"></code></pre>
+
 <div style={{textAlign: 'center', fontWeight:'bold', color:'#979797'}}>
   Developed and Funded by:
   <div className="row" >
@@ -109,12 +130,7 @@ const SignUp = () => {
       </div>
 </div>
 <br/>
-<div style={{textAlign: 'center',fontSize:'15px', color:'grey' }}>
-  <p>Local Network Access:   <a href="http://10.1.25.28/tcap" target="_blank" rel="noopener noreferrer">
-  http://10.1.25.28/tcap
-            </a></p> 
 
-</div>
 
 </div>
 </>
