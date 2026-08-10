@@ -101,6 +101,10 @@ const Dem = () => {
   const siteRef = useRef(nameer[0]);
   const siteRef2 = useRef(nameer[0]);
   const [cross, setCross] = useState([]);
+  //DEM opacity (slider is only shown while the DEM layer is on the map)
+  const [demOpacity, setDemOpacity] = useState(1);
+  const demOpacityRef = useRef(1);
+  const [showDemOpacity, setShowDemOpacity] = useState(nameer[0] !== "Tuvalu");
   //const [data, setData] = useState({labels:[],datasets:[]});
   const [data, setData] = useState({
     labels :[],
@@ -390,7 +394,7 @@ layer3.current = addTVMarker(mapContainer.current, "Niulakita").on('click', func
 
 }
 else{
-  shorelineLayer.current = addLidar(mapContainer.current, siteRef.current)
+  shorelineLayer.current = addLidar(mapContainer.current, siteRef.current, demOpacityRef.current)
 
    mayFlyer(mapContainer.current, siteRef.current);
 }
@@ -420,9 +424,10 @@ m_drawn_features.current.clearLayers();
  // mapContainer.current.removeLayer(shorelineLayer.current);
 
  //shorelineLayer.current = addHillshade(mapContainer.current, siteRef.current)
-  shorelineLayer.current = addLidar(mapContainer.current, siteRef.current)
+  shorelineLayer.current = addLidar(mapContainer.current, siteRef.current, demOpacityRef.current)
+  setShowDemOpacity(true);
  // console.log(siteRef.current)
- 
+
   mayFlyer(mapContainer.current, siteRef.current);
 
    mapContainer.current.eachLayer(function (layer) {
@@ -462,7 +467,7 @@ m_drawn_features.current.clearLayers();
   //  mapContainer.current.removeLayer(m_drawn_features.current);
     }
 toast.info('Click on marker to zoom.', {position: toast.POSITION.BOTTOM_CENTER, autoClose:6000})
-   
+    setShowDemOpacity(false);
     mapContainer.current.removeLayer(shorelineLayer.current);
     layer3.current = addTVMarker(mapContainer.current, "Nanumaga").on('click', function(e) {onClickShow2('Nanumaga')}).bindTooltip("Nanumaga", {permanent:true,opacity:0.65});
     layer3.current = addTVMarker(mapContainer.current, "Nanumea").on('click', function(e) {onClickShow2('Nanumea')}).bindTooltip("Nanumea", {permanent:true,opacity:0.65});
@@ -493,12 +498,22 @@ toast.info('Click on marker to zoom.', {position: toast.POSITION.BOTTOM_CENTER, 
       mapContainer.current.removeLayer(layer);
     }
   });
-  shorelineLayer.current = addLidar(mapContainer.current, siteRef.current)
+  shorelineLayer.current = addLidar(mapContainer.current, siteRef.current, demOpacityRef.current)
+  setShowDemOpacity(true);
 
   mayFlyer(mapContainer.current, e.target.value);
   }
 
    setGlobalState("island_name", e.target.value);
+}
+
+const handleDemOpacity=(e)=>{
+  const value = Number(e.target.value) / 100;
+  demOpacityRef.current = value;
+  setDemOpacity(value);
+  if (shorelineLayer.current != null){
+    shorelineLayer.current.setOpacity(value);
+  }
 }
 
 const handleSubmit=(e)=>{
@@ -545,6 +560,23 @@ const handleSubmit=(e)=>{
 </select>
       </div>
       </div>
+      {showDemOpacity &&
+      <div className="row" style={{marginTop:'8px'}}>
+        <div className="col-sm-12">
+          <p style={{marginBottom:'2px'}}>DEM Opacity: {Math.round(demOpacity*100)}%</p>
+          <input
+            type="range"
+            className="form-range"
+            min="0"
+            max="100"
+            step="1"
+            value={Math.round(demOpacity*100)}
+            onChange={handleDemOpacity}
+            style={{width:'100%'}}
+          />
+        </div>
+      </div>
+      }
     </div>
   </div>
 

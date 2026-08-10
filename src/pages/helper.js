@@ -1037,13 +1037,13 @@ export function addShorelineImagenoPaneGen(mapContainer, siteRef){
 
   return layer;
 }
-export function addLidar(mapContainer, siteRef){
+export function addLidar(mapContainer, siteRef, opacity){
 
   var url = 'https://opmgeoserver.gem.spc.int/geoserver/spc/wms';
   var layer = L.tileLayer.wms(url, {
     //layers: 'spc:Niutao_MB_Lidar.tif,spc:hs',
     layers: 'TV_'+siteRef+'_MB_Lidar,TV_Hillshade_'+siteRef+'_MB_Lidar',
-    //opacity:0.7,
+    opacity: opacity === undefined ? 1 : opacity,
     transparent: true,
     format: 'image/png'
   }).addTo(mapContainer);
